@@ -1,6 +1,9 @@
 /**********************************/
 /********** General CSS ***********/
 /**********************************/
+.clr{
+    clear: both ;
+}
 body {
     color: #666666;
     background: #F6D155;
@@ -131,8 +134,6 @@ a:focus {
         margin-left: -250px;
         float: left;
         overflow: auto;
-        scrollbar-width: thin;
-        scrollbar-color: gray;
         z-index: 2;
     }
 
@@ -314,7 +315,6 @@ a:focus {
 
 .header .content-inner {
     padding: 100px 30px;
-    background: url(../img/cars2.jpg)right bottom no-repeat;
     background-size: contain;
 }
 

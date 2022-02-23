@@ -1,11 +1,11 @@
 using AboutMe.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using AboutMe.Service;
+using Microsoft.EntityFrameworkCore;
 
 namespace AboutMe.View
 {
@@ -24,7 +24,7 @@ namespace AboutMe.View
             services.AddScoped<IPostService, PostService>();
 
             services.AddDbContext<PartifolioDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("PartifolioDb")));
+                options.UseNpgsql(Configuration.GetConnectionString("PartifolioDbContext")));
 
             services.AddControllersWithViews();
         }
@@ -54,6 +54,7 @@ namespace AboutMe.View
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
             });
         }
     }
