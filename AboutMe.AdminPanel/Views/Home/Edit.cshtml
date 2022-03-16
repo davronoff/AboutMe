@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Edit Page";
+    Layout = "_Layout";
+}
+@model EditViewModel
+            <div class="box-header position-relative table-header pt-4">
+                <div class="d-flex justify-content-between mt-3 com-header">
+                    <h3>Xizmat ma'lumotlarini o'zgartirish</h3>
+                </div>
+            </div>
+            <form asp-controller="home" asp-action="edit" enctype="multipart/form-data" method="post">
+                <div class="form-group mx-4" style="padding: 10px; font-size: 18px;">
+                    <label asp-for="partifolioName">Nomi</label>
+                    <input asp-for="partifolioName" type="text" class="form-control" id="title" value="@Model.partifolioName">
+                </div>
+                <div class="form-group mx-4" style="padding: 10px; font-size: 18px;">
+                    <label asp-for="pratifolioDescription">Narxi</label>
+                    <input asp-for="pratifolioDescription" type="text" class="form-control" id="title" value="@Model.pratifolioDescription">
+                </div>
+                <input type="hidden" asp-for="imageFileName" value="@Model.imageFileName"/>
+                @{
+                    string imageSource = @Model.imageFileName;
+                    if (!imageSource.Contains("http"))
+                    {
+                        imageSource = "~/images/" + imageSource;
+                    }
+                    else if  (imageSource.Contains("ilyosbek"))
+                    {
+                        string[] vs = imageSource.Split(new string[] {"https://ilyosbek.uz/rtm/images/"}, StringSplitOptions.None);
+                        imageSource = "~/images/" + vs[1];
+                    }
+                }
+
+                <div class="form-group mx-4" style="padding: 10px; font-size: 18px;">
+                    <label asp-for="@Model.imageFileName">Kurs rasmi</label> <br />
+                    <img src="@imageSource" style="width: 200px;" asp-for="@Model.imageFileName" asp-append-version="true"/>
+                </div>
+                <label asp-for="NewImage" class="mx-4" style="padding: 10px; font-size: 18px;">Yangi rasm tanlash</label>
+                <div class="input-group mx-4" style="padding: 10px; font-size: 18px;">
+                    <input type="file" asp-for="NewImage" accept="image/*" class="form-control" id="inputGroupFile02">
+                </div>
+                    <div class="button-group text-center my-5">
+                    <button type="submit" class="btn btn-success me-5" style=" width:200px; " >
+                       Save
+                    </button>
+                    <a asp-controller="home" asp-action="edit">
+                        <span class="btn btn-info"  style=" width:200px;">Cencel</span>
+                    </a>
+                </div>
+            </form>
