@@ -1,22 +1,22 @@
-﻿using AboutMe.Domain;
+﻿using AboutMe.AdminPanel.Services;
+using AboutMe.Domain;
 using AboutMe.Service;
 using AboutMe.ViewModel;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace AboutMe.AdminPanel.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IDeleteSaveimageInterface _deleteSaveimage;
         private readonly IPostService _postService;
 
-        public HomeController(IPostService postService)
+        public HomeController(IPostService postService,
+            IDeleteSaveimageInterface deleteSaveimage)
         {
+            _deleteSaveimage = deleteSaveimage;
             _postService = postService;
         }
         public async  Task<IActionResult> Index()
@@ -40,6 +40,23 @@ namespace AboutMe.AdminPanel.Controllers
                 imageFileName = viewModel.imageFileName
             };
             await _postService.AddPartifolio(post);
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var item = await _postService.GetByIdPartifolio(id);
+            return View((EditViewModel)item);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditViewModel viewModel)
+        {
+            if(viewModel.NewImage is not null)
+            {
+                _deleteSaveimage.DeleteImage(viewModel.imageFileName);
+                viewModel.imageFileName = _deleteSaveimage.SaveImage(viewModel.NewImage);
+            }
+            var item = await _postService.UpdatePartifolio((Post)viewModel);
             return RedirectToAction("Index");
         }
     }
