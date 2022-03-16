@@ -10,11 +10,11 @@
     </div>
     <form class="mx-4" asp-controller="home" asp-action="add" enctype="multipart/form-data" method="post">
         <div class="form-group mx-4" style="padding: 10px; font-size: 18px;">
-            <label asp-for="partifolioName">Nomi</label>
+            <label asp-for="partifolioName">Portifolio Name</label>
             <input asp-for="partifolioName" type="text" class="form-control" id="title" placeholder="Portifolio Name">
         </div>
           <div class="form-group mx-4" style="padding: 10px; font-size: 18px;">
-            <label asp-for="pratifolioDescription">Davomiyligi</label>
+            <label asp-for="pratifolioDescription">Portifolio Descroption</label>
             <input asp-for="pratifolioDescription" type="text" class="form-control" id="title" placeholder="Portifolio Description">
         </div>
         <div class="input-group mx-4 "style="padding: 10px; font-size: 18px;">
@@ -23,10 +23,10 @@
         @*Button group*@
         <div class="button-group text-center my-5">
             <button type="submit" class="btn btn-success me-5" style=" width:200px; " >
-                Saqlash
+                Save
             </button>
             <a asp-controller="service" asp-action="services">
-                <span class="btn btn-info"  style=" width:200px;">Bekor qilish</span>
+                <span class="btn btn-info"  style=" width:200px;">Cancel</span>
             </a>
          </div>
     </form>
